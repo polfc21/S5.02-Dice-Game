@@ -4,6 +4,7 @@ import com.itacademy.dicegame.dtos.GameDTO;
 import com.itacademy.dicegame.dtos.PlayerDTO;
 import com.itacademy.dicegame.entities.Game;
 import com.itacademy.dicegame.entities.Player;
+import com.itacademy.dicegame.services.GamePlay;
 import com.itacademy.dicegame.services.PlayerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +59,7 @@ public class PlayerControllerTest {
         this.players = List.of(this.player);
         this.playerDTO = new PlayerDTO(this.player);
         this.playersDTO = List.of(this.playerDTO);
-        this.game = new Game(this.player);
+        this.game = new Game(this.player, new GamePlay());
         this.games = List.of(this.game);
         this.gameDTO = new GameDTO(this.game);
         this.gamesDTO = List.of(this.gameDTO);

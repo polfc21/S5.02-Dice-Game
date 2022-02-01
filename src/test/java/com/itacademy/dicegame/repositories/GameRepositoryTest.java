@@ -2,6 +2,7 @@ package com.itacademy.dicegame.repositories;
 
 import com.itacademy.dicegame.entities.Game;
 import com.itacademy.dicegame.entities.Player;
+import com.itacademy.dicegame.services.GamePlay;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class GameRepositoryTest {
     @BeforeEach
     public void setUp() {
         this.player = new Player("Pol");
-        this.game = new Game(this.player);
+        this.game = new Game(this.player, new GamePlay());
     }
 
     @Test

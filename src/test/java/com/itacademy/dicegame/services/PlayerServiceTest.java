@@ -32,6 +32,7 @@ public class PlayerServiceTest {
     private Player player;
     private List<Player> players;
     private Game game;
+    private GamePlay gamePlay;
     private List<Game> games;
 
 
@@ -39,7 +40,8 @@ public class PlayerServiceTest {
     public void setUp() {
         this.player = new Player("Pol Farreny Capdevila");
         this.players = List.of(this.player);
-        this.game = new Game(this.player);
+        this.gamePlay = new GamePlay();
+        this.game = new Game(this.player, this.gamePlay);
         this.games = List.of(this.game);
     }
 
@@ -70,6 +72,16 @@ public class PlayerServiceTest {
         verify(this.playerRepository, never()).save(this.player);
 
         Assertions.assertNull(this.sut.updatePlayer(notPresentId, null));
+    }
+
+    @Test
+    public void testGivenNotPresentIdPlayerWhenCreateGameThenReturnNull() {
+        Long notPresentId = 1L;
+
+        when(this.playerRepository.findById(notPresentId)).thenReturn(Optional.empty());
+        verify(this.gameRepository, never()).save(this.game);
+
+        Assertions.assertNull(this.sut.createGame(notPresentId));
     }
 
     @Test

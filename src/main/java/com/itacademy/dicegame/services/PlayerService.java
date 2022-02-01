@@ -39,7 +39,7 @@ public class PlayerService {
     public Game createGame(Long id) {
         Optional<Player> optionalPlayer = this.playerRepository.findById(id);
         if (optionalPlayer.isPresent()) {
-            Game game = new Game(optionalPlayer.get());
+            Game game = new Game(optionalPlayer.get(), new GamePlay());
             this.gameRepository.save(game);
             this.updateRateWins(id);
             return game;
@@ -49,10 +49,7 @@ public class PlayerService {
 
     private void updateRateWins(Long id) {
         Player player = this.playerRepository.getById(id);
-        Double winGames = (double) player.getGames()
-                .stream()
-                .filter(Game::getResult)
-                .count();
+        Double winGames = (double) player.getGames().stream().filter(Game::getResult).count();
         Integer sizeGames = player.getGames().size();
         player.setRateWins(winGames / sizeGames * 100);
         this.playerRepository.save(player);
